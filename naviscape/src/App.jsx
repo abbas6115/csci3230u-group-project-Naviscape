@@ -1,16 +1,31 @@
 import { useState } from 'react'
 import './styles/App.css'
-
 import locations from './places.json'
+import { LoginForm } from './features/auth/LoginForm'
+import { UserStatus } from './features/auth/UserStatus'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [currentUser, setCurrentUser] = useState(null)
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
+
+  const handleLoginSuccess = (user) => {
+    setCurrentUser(user)
+    setIsLoginModalOpen(false)
+  }
+
+  const handleLogout = () => {
+    setCurrentUser(null)
+  }
 
   return (
     <>
       <header className="site-header">
             <nav id="site-navigation" className="site-navigation" aria-label="Main navigation">
-                <a className="button-login" href="login-page.html" aria-hidden="true">Log In</a>
+                <UserStatus
+                    currentUser={currentUser}
+                    onLogout={handleLogout}
+                    onRequestLogin={() => setIsLoginModalOpen(true)}
+                />
             </nav>
         </header>
 
@@ -25,6 +40,7 @@ function App() {
                     </form>
                 </div>
             </section>
+
             <section className="display-card">
                 <div className="card">
                     <img src="https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=m8sZTfGk6KUVMG8qiTcNOw&cb_client=search.gws-prod.grass&w=408&h=240&yaw=156.8786&pitch=0&thumbfov=100" alt="Attraction 1" className="card-image"></img>
@@ -50,6 +66,17 @@ function App() {
                 </div>
             </section>
             
+            {isLoginModalOpen && (
+                <div className='modal-overlay'>
+                    <div className='modal-content'>
+                        <LoginForm
+                            onLoginSuccess={handleLoginSuccess}
+                            onCancel={() => setIsLoginModalOpen(false)}
+                        />
+                    </div>
+                </div>
+            )}
+
             <div className="bottom-city-fader">
                 <img src="src/assets/city-background.png" alt="City Skyline Background" className="faded-city-img"></img>
             </div>
