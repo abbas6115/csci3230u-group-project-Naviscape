@@ -19,7 +19,7 @@ export default function Details_page({ name, categories, image_link, open_hours,
                     {/* <!-- Additional information --> */}
                     <p>{open_hours}</p>
                     <ul className='category-list'>
-                        {Object.values(categories).map((cat)=>(<li>{cat}</li>))}
+                        {Object.keys(categories).map((key)=>(<li key={key}>{categories[key]}</li>))}
                     </ul>
                 </article>
                 <div>
