@@ -31,32 +31,6 @@ function App() {
                     <LocationCard key={l.id} {...l} ></LocationCard>
                 ))}
             </div>
-
-            {/* <section className="display-card">
-                <div className="card">
-                    <img src="https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=m8sZTfGk6KUVMG8qiTcNOw&cb_client=search.gws-prod.grass&w=408&h=240&yaw=156.8786&pitch=0&thumbfov=100" alt="Attraction 1" className="card-image"></img>
-                    <div className="card-content">
-                        <h3 className="card-title">
-                            <a href="static-details2.html" className="card-link">Memorial Park</a>
-                        </h3>
-                        <p className="card-text">
-                            111 Dundas St E, London, ON L1N 4C8 | Ontario, Canada
-                        </p>
-                    </div>
-                </div>
-                <div className="card">
-                    <img src="https://lh3.googleusercontent.com/gps-cs-s/ANWiy9SG5FHiZRylCATcSu9jFJaAjN3KC-laD9eVjZda9jrJ_YIDcE9Ip9vpJH45OTRl2JrZZPg-b5z9oBNz4WzgxVxoDO3nKLSM9ev3bRTy8xA2tg779DxFJZ77NNIhWArvBdqQZ9fu=s680-w680-h510" alt="Attraction 2" className="card-image"></img>
-                    <div className="card-content">
-                        <h3 className="card-title">
-                            <a href="static-details1.html" className="card-link">Ontario Tech University</a>
-                        </h3>
-                        <p className="card-text">
-                            2000 Simcoe St N, Oshawa, L1G 0C5 | Ontario, Canada
-                        </p>
-                    </div>
-                </div>
-            </section> */}
-            
             <div className="bottom-city-fader">
                 <img src="src/assets/city-background.png" alt="City Skyline Background" className="faded-city-img"></img>
             </div>
