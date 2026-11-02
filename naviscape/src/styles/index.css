@@ -1,6 +1,7 @@
 :root {
   --main-theme-color: #cb1b0b;
   --text-header-color: #F0FFF0;
+  --background-color: #fbfaf5;
 }
 
 * {
@@ -19,7 +20,7 @@ body {
   color: #1c2a26;
   font-family: 'Ariel', sans-serif;
   line-height: 1.5;
-  background: #fbfaf5;
+  background: var(--background-color);
 }
 
 a {
@@ -53,7 +54,7 @@ a {
 .card {
   width: 330px;
   height: auto;
-  background-color: #ffffff;
+  background-color: var(--background-color);
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
@@ -226,6 +227,43 @@ button {
   cursor: pointer;
   margin-left: auto;
   margin-right: 1rem;
+}
+
+.item-details{
+  position: fixed;
+  height: 100vh;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  padding: .5rem;
+}
+
+.item-detail-body{
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column; 
+    width: 40%;
+    padding: 1rem;
+    border: var(--body-border-color) solid 1px;
+    color: var(--body-text-color); 
+    background-color: var(--background-color);
+    border-radius: 10px;
+    overflow-y: scroll;
+}
+
+.attraction-details img{
+    height: 10rem;
+    border-radius: 10px;
+    font-size: 1rem;
+}
+.attraction-details .category-list{
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
 }
 
 .site-navigation .button-login {
