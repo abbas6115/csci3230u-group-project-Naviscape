@@ -2,6 +2,7 @@ import { useState } from 'react'
 import './styles/App.css'
 
 import locations from './places.json'
+import LocationCard from './LocationCard'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -25,7 +26,13 @@ function App() {
                     </form>
                 </div>
             </section>
-            <section className="display-card">
+            <div className="display-card">
+                {locations.map((l) =>(
+                    <LocationCard key={l.id} {...l} ></LocationCard>
+                ))}
+            </div>
+
+            {/* <section className="display-card">
                 <div className="card">
                     <img src="https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=m8sZTfGk6KUVMG8qiTcNOw&cb_client=search.gws-prod.grass&w=408&h=240&yaw=156.8786&pitch=0&thumbfov=100" alt="Attraction 1" className="card-image"></img>
                     <div className="card-content">
@@ -48,7 +55,7 @@ function App() {
                         </p>
                     </div>
                 </div>
-            </section>
+            </section> */}
             
             <div className="bottom-city-fader">
                 <img src="src/assets/city-background.png" alt="City Skyline Background" className="faded-city-img"></img>
