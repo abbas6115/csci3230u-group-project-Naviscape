@@ -135,6 +135,29 @@ a {
   margin: 0;
 }
 
+.search-filter-sort-controls{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 60%;
+}
+.search-filter-sort-controls .filter-dropdown-list{
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: repeat(2, 8rem);
+  gap: 1rem;
+}
+
+.search-filter-sort-controls .filter-dropdown-list select{
+  border: none;
+  border-radius: 5px;
+
+  padding: 2px;
+  text-align: center;
+  background-color: white;
+}
+
 .search-content {
   display: flex;
   align-items: center;

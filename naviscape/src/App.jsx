@@ -5,13 +5,46 @@ import DetailsPage from './location-details'
 import LocationCard from './LocationCard'
 import { LoginForm } from './features/auth/LoginForm'
 import { UserStatus } from './features/auth/UserStatus'
-
+import SearchFilterSortControls from './components/SearchFilterSortControls'
 
 function App() {
-    const [viewLocationDetail,setViewLocationDetail] = useState(null)
+    const [viewLocationDetail, setViewLocationDetail] = useState(null)
     const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false)
     const [currentUser, setCurrentUser] = useState(null)
     const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
+    const [searchQuery, setSearchQuery] = useState("");
+    const [selectedCategory, setSelectedCategory] = useState("All");
+    const [sortOption, setSortOption] = useState("name-ascending");
+
+    // This is so we can extract unique categories from the locations data dynamically
+    const categories = Array.from(new Set(locations.map((location) => location.categories["0"]).filter(Boolean))
+    );
+
+    // Calculating the filtered and sort without mutating the original locations array.
+    const filteredLocations = locations
+        .filter((location) =>
+            location.name ? location.name.toLowerCase().includes(searchQuery.toLowerCase().trim()) : true
+        )
+        .filter((location) =>
+            selectedCategory === "All" || Object.values(location.categories).includes(selectedCategory)
+        )
+        .slice() // Create a shallow copy beforehand, to avoid mutating during sorting
+        .sort((a, b) => {
+            if (sortOption === "name-ascending") {
+                return a.name.localeCompare(b.name);
+            }
+            if (sortOption === "name-descending") {
+                return b.name.localeCompare(a.name);
+            }
+            if (sortOption === "rating-ascending") {
+                return (a.rating || 0) - (b.rating || 0);
+            }
+            if (sortOption === "rating-descending") {
+                return (b.rating || 0) - (a.rating || 0);
+            }
+            return 0; // Default case, should not happen
+
+        });
 
     const handleLoginSuccess = (user) => {
         setCurrentUser(user)
@@ -39,18 +72,28 @@ function App() {
                     <div className="hero-content">
                         <h1>Welcome to Naviscape</h1>
                         <p>A brand new way to find the best places all over!</p>
-                        <form className="search-content" action="/search" method="get">
-                            <input type="search" className="search-input" name="q" placeholder="Search for attractions..." aria-label="Search for attractions"></input>
-                            <button type="submit" className="search-button">Search</button>
-                        </form>
+                        <SearchFilterSortControls
+                            searchQuery={searchQuery}
+                            onSearchChange={setSearchQuery}
+                            selectedCategory={selectedCategory}
+                            onCategoryChange={setSelectedCategory}
+                            sortOption={sortOption}
+                            onSortChange={setSortOption}
+                            categories={categories}
+                        />
                     </div>
                 </section>
 
                 <div className="display-card">
-                    {locations.map((l) => (
-                        <LocationCard key={l.id} {...l} viewOnClick={()=>{setViewLocationDetail(l);setIsDetailsModalOpen(true);}}></LocationCard>
-                    ))}
+                    {filteredLocations.length > 0 ? (
+                        filteredLocations.map((location) => (
+                            <LocationCard key={location.id} {...location} viewOnClick={() => { setViewLocationDetail(location); setIsDetailsModalOpen(true); }}></LocationCard>
+                        ))
+                    ) : (
+                        <p>No locations found.</p>
+                    )}
                 </div>
+
                 <div className="bottom-city-fader">
                     <img src="src/assets/city-background.png" alt="City Skyline Background" className="faded-city-img"></img>
                 </div>
@@ -66,6 +109,7 @@ function App() {
                     </div>
                 )}
 
+                {/* details page modal */}
                 {isDetailsModalOpen && (<div className='item-details' onClick={() => { setIsDetailsModalOpen(false); }}>
                     <DetailsPage key={viewLocationDetail.id} {...viewLocationDetail} onDetailsClick={(e) => { e.stopPropagation() }} />
                 </div>)}
