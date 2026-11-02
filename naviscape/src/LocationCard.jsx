@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
-export default function LocationCard({ image_link, name, address_line2}){
+export default function LocationCard({ image_link, name, address_line2, viewOnClick}){
     const[fav, setFav] = useState(false);
     const [visited, setVisited] = useState(0);
 
     return(
-        <div className='card'>
+        <div className='card' onClick={viewOnClick}>
             <img src={image_link} alt={name} className='card-image'/>
             <div className="card-content">
                 <h3 className="card-title">
